@@ -5,15 +5,19 @@ import GalleryItem from './GalleryItem'
 import Modal from './Modal'
 
 interface ClientGalleryProps {
-  images: {
+  images: Array<{
     id: number
     src: string
     alt: string
-  }[]
+  }>
 }
 
 export default function ClientGallery({ images }: ClientGalleryProps) {
   const [selectedImage, setSelectedImage] = useState<{ id: number; src: string; alt: string } | null>(null)
+
+  const handleImageClick = (image: { id: number; src: string; alt: string }) => {
+    setSelectedImage(image)
+  }
 
   return (
     <>
@@ -22,8 +26,8 @@ export default function ClientGallery({ images }: ClientGalleryProps) {
           <GalleryItem
             key={image.id}
             image={image}
-            onClick={() => setSelectedImage(image)}
-            delay={index * 0.1}
+            onImageClick={handleImageClick}
+            index={index}
           />
         ))}
       </div>

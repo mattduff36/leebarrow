@@ -9,22 +9,21 @@ interface GalleryItemProps {
     src: string
     alt: string
   }
-  onClick: () => void
-  delay: number
+  onImageClick: (image: { id: number; src: string; alt: string }) => void
+  index: number
 }
 
-export default function GalleryItem({ image, onClick, delay }: GalleryItemProps) {
+export default function GalleryItem({ image, onImageClick, index }: GalleryItemProps) {
   const [isHovered, setIsHovered] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    // Add a staggered delay based on the delay prop
     const timer = setTimeout(() => {
       setIsVisible(true)
-    }, delay * 1000) // Convert delay to milliseconds
+    }, index * 100)
 
     return () => clearTimeout(timer)
-  }, [delay])
+  }, [index])
 
   return (
     <div 
@@ -32,7 +31,7 @@ export default function GalleryItem({ image, onClick, delay }: GalleryItemProps)
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={onClick}
+      onClick={() => onImageClick(image)}
     >
       <div className="aspect-square relative">
         <Image
