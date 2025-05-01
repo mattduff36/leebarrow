@@ -3,9 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     unoptimized: true,
-    domains: ['leebarrow.vercel.app'],
   },
-  output: 'standalone',
+  output: 'export',
+  distDir: 'dist',
+  trailingSlash: true,
 }
 
 module.exports = nextConfig 
