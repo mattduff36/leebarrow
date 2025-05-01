@@ -22,7 +22,7 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: 'Lee Barrowcliff Photography',
-  description: 'Professional photography portfolio showcasing Lee Barrowcliff\'s work',
+  description: 'Professional photography portfolio showcasing Lee Barrowcliff&apos;s work',
 }
 
 export default function RootLayout({
