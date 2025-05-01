@@ -4,7 +4,15 @@ const nextConfig = {
   output: 'export',
   images: {
     unoptimized: true,
-  }
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'leebarrow.vercel.app',
+      },
+    ],
+  },
+  trailingSlash: true,
+  distDir: 'out'
 }
 
 module.exports = nextConfig 
