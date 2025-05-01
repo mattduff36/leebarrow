@@ -5,8 +5,12 @@ const nextConfig = {
     unoptimized: true,
   },
   output: 'export',
-  distDir: 'dist',
+  distDir: 'out',
   trailingSlash: true,
+  // Disable image optimization since we're using static export
+  images: {
+    unoptimized: true,
+  },
 }
 
 module.exports = nextConfig 
