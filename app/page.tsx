@@ -1,6 +1,3 @@
-'use client'
-
-import { useState } from 'react'
 import Image from 'next/image'
 import Modal from './components/Modal'
 import GalleryItem from './components/GalleryItem'
@@ -15,15 +12,13 @@ const images = [
 ]
 
 export default function Home() {
-  const [selectedImage, setSelectedImage] = useState<{ id: number; src: string; alt: string } | null>(null)
-
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center">
         <div className="absolute inset-0">
           <Image
-            src="/hero-bg.jpg"
+            src="/1.jpg"
             alt="Hero background"
             fill
             className="object-cover"
@@ -33,8 +28,8 @@ export default function Home() {
         </div>
         <div className="relative z-10 text-center text-white px-4">
           <h1 className="hero-text animate-fade-in">Lee Barrowcliff</h1>
-          <p className="text-xl md:text-2xl font-montserrat animate-fade-in" style={{ animationDelay: '0.5s' }}>
-            Capturing Life's Beautiful Moments
+          <p className="text-2xl md:text-3xl font-marcellus animate-fade-in tracking-wider" style={{ animationDelay: '0.5s' }}>
+            Photography
           </p>
         </div>
       </section>
@@ -47,20 +42,12 @@ export default function Home() {
             <GalleryItem
               key={image.id}
               image={image}
-              onClick={() => setSelectedImage(image)}
+              onClick={() => {}}
               delay={index * 0.1}
             />
           ))}
         </div>
       </section>
-
-      {/* Modal */}
-      {selectedImage && (
-        <Modal
-          image={selectedImage}
-          onClose={() => setSelectedImage(null)}
-        />
-      )}
     </main>
   )
 } 
