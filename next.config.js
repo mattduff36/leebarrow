@@ -4,11 +4,7 @@ const nextConfig = {
   output: 'export',
   images: {
     unoptimized: true,
-  },
-  // Ensure all pages are static
-  experimental: {
-    appDir: true,
-  },
+  }
 }
 
 module.exports = nextConfig 

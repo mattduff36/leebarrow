@@ -1,6 +1,5 @@
 import Image from 'next/image'
-import Modal from './components/Modal'
-import GalleryItem from './components/GalleryItem'
+import ClientGallery from './components/ClientGallery'
 
 const images = [
   { id: 1, src: '/1.jpg', alt: 'Photography 1' },
@@ -37,16 +36,7 @@ export default function Home() {
       {/* Gallery Section */}
       <section className="py-16">
         <h2 className="section-title">Gallery</h2>
-        <div className="gallery-grid">
-          {images.map((image, index) => (
-            <GalleryItem
-              key={image.id}
-              image={image}
-              onClick={() => {}}
-              delay={index * 0.1}
-            />
-          ))}
-        </div>
+        <ClientGallery images={images} />
       </section>
     </main>
   )
