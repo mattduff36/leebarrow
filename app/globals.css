@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 55, 65, 81;
+  --background-rgb: 255, 255, 255;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+@layer base {
+  html {
+    font-family: 'Marcellus', serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Marcellus', serif;
+    @apply text-gray-800;
+  }
+}
+
+@layer components {
+  .gallery-title {
+    @apply text-4xl md:text-5xl font-serif font-light tracking-wider;
+  }
+  
+  .gallery-description {
+    @apply text-lg text-gray-600 font-serif;
+  }
+
+  .hero-title {
+    @apply text-7xl md:text-9xl font-['Great_Vibes'] tracking-normal;
+  }
+
+  .hero-subtitle {
+    @apply text-2xl md:text-3xl font-['Marcellus'] tracking-wider;
+  }
+} 
