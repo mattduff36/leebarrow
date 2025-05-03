@@ -1,43 +1,36 @@
-import Image from 'next/image'
-import ClientGallery from './components/ClientGallery'
+'use client'
 
-const images = [
-  { id: 1, src: '/1.jpg', alt: 'Photography 1' },
-  { id: 2, src: '/2.jpg', alt: 'Photography 2' },
-  { id: 3, src: '/3.jpg', alt: 'Photography 3' },
-  { id: 4, src: '/4.jpg', alt: 'Photography 4' },
-  { id: 5, src: '/5.jpg', alt: 'Photography 5' },
-  { id: 6, src: '/6.jpg', alt: 'Photography 6' },
-]
+import Hero from './components/Hero'
+import ClientGallery from './components/ClientGallery'
+import { GalleryImage } from './components/types'
+import { useState, useEffect } from 'react'
 
 export default function Home() {
-  return (
-    <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center">
-        <div className="absolute inset-0">
-          <Image
-            src="/1.jpg"
-            alt="Hero background"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black bg-opacity-50" />
-        </div>
-        <div className="relative z-10 text-center text-white px-4">
-          <h1 className="hero-text animate-fade-in">Lee Barrowcliff</h1>
-          <p className="text-2xl md:text-3xl font-marcellus animate-fade-in tracking-wider" style={{ animationDelay: '0.5s' }}>
-            Photography
-          </p>
-        </div>
-      </section>
+  const [images, setImages] = useState<GalleryImage[]>([])
 
-      {/* Gallery Section */}
-      <section className="py-16">
-        <h2 className="section-title">Gallery</h2>
-        <ClientGallery images={images} />
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await fetch('/api/gallery-images')
+        const data = await response.json()
+        setImages(data)
+      } catch (error) {
+        console.error('Error fetching gallery images:', error)
+      }
+    }
+
+    fetchImages()
+  }, [])
+
+  return (
+    <div>
+      <Hero />
+      <section id="gallery" className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-medium text-gray-400 tracking-wider uppercase font-montserrat text-center mb-8">Gallery</h2>
+          <ClientGallery images={images} />
+        </div>
       </section>
-    </main>
+    </div>
   )
 } 

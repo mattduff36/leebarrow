@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'export',
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -12,7 +11,14 @@ const nextConfig = {
     ],
   },
   trailingSlash: true,
-  distDir: 'out'
+  experimental: {
+    serverActions: true,
+    serverComponentsExternalPackages: [],
+  },
+  webpack: (config) => {
+    config.resolve.fallback = { fs: false, path: false };
+    return config;
+  }
 }
 
 module.exports = nextConfig 

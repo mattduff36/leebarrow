@@ -1,61 +1,65 @@
 'use client'
 
-import { useEffect, useCallback } from 'react'
-import Image from 'next/image'
+import { useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface ModalProps {
-  image: {
-    id: number
-    src: string
-    alt: string
-  }
+  isOpen: boolean
   onClose: () => void
+  title: string
+  children: React.ReactNode
 }
 
-export default function Modal({ image, onClose }: ModalProps) {
-  const handleEscape = useCallback((e: KeyboardEvent) => {
-    if (e.key === 'Escape') onClose()
-  }, [onClose])
-
+export default function Modal({ isOpen, onClose, title, children }: ModalProps) {
   useEffect(() => {
-    document.addEventListener('keydown', handleEscape)
-    document.body.style.overflow = 'hidden'
-
-    return () => {
-      document.removeEventListener('keydown', handleEscape)
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
       document.body.style.overflow = 'unset'
     }
-  }, [handleEscape])
-
-  const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      onClose()
+    return () => {
+      document.body.style.overflow = 'unset'
     }
-  }
+  }, [isOpen])
 
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm"
-      onClick={handleBackdropClick}
-    >
-      <button
-        className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
-        onClick={onClose}
-        aria-label="Close modal"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-      <div className="relative w-full max-w-5xl h-[80vh] p-4">
-        <Image
-          src={image.src}
-          alt={image.alt}
-          fill
-          className="object-contain"
-          priority
-        />
-      </div>
-    </div>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="fixed inset-0 z-50 flex items-center justify-center"
+        >
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.5 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-black"
+            onClick={onClose}
+          />
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="relative bg-white rounded-lg p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto"
+          >
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <h2 className="text-2xl font-medium text-gray-400 tracking-wider uppercase font-montserrat text-center mb-6">{title}</h2>
+            {children}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 } 

@@ -5,8 +5,10 @@ A modern photography portfolio website built with Next.js and Tailwind CSS.
 ## Features
 
 - Responsive design
-- Image gallery with hover effects
+- Dynamic hero image slideshow with smooth transitions
+- Interactive gallery with hover effects
 - Full-screen image modal
+- Contact form with email functionality
 - Custom typography with Google Fonts
 - Optimized image loading
 
@@ -27,18 +29,19 @@ A modern photography portfolio website built with Next.js and Tailwind CSS.
 
 - `app/` - Next.js app directory
   - `components/` - Reusable React components
+  - `api/` - API routes for image handling
   - `globals.css` - Global styles and Tailwind imports
   - `layout.tsx` - Root layout component
   - `page.tsx` - Home page component
 - `public/` - Static assets
-  - `gallery/` - Gallery images
-  - `hero.jpg` - Hero section background image
+  - `hero_images/` - Hero section background images
+  - `gallery_images/` - Gallery images
 
 ## Adding Images
 
-1. Place your hero image in `public/hero.jpg`
-2. Add gallery images to `public/gallery/`
-3. Update the `galleryImages` array in `app/page.tsx` with your image details
+1. Add hero images to `public/hero_images/`
+2. Add gallery images to `public/gallery_images/`
+3. Images will be automatically loaded and displayed
 
 ## Technologies Used
 
@@ -46,4 +49,5 @@ A modern photography portfolio website built with Next.js and Tailwind CSS.
 - React
 - TypeScript
 - Tailwind CSS
+- Framer Motion
 - Google Fonts (Playfair Display & Montserrat) 

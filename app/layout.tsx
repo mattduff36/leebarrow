@@ -1,6 +1,8 @@
+import { Inter } from 'next/font/google'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Great_Vibes, Marcellus, Montserrat } from 'next/font/google'
+import ClientLayout from './components/ClientLayout'
 
 const greatVibes = Great_Vibes({
   weight: '400',
@@ -33,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${greatVibes.variable} ${marcellus.variable} ${montserrat.variable}`}>
       <body className="bg-off-white min-h-screen">
-        {children}
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   )
