@@ -1,38 +1,16 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { GalleryImage } from './types'
 import Image from 'next/image'
 
-export default function ClientGallery() {
-  const [images, setImages] = useState<GalleryImage[]>([])
-  const [loading, setLoading] = useState(true)
+interface ClientGalleryProps {
+  images: GalleryImage[]
+}
+
+export default function ClientGallery({ images }: ClientGalleryProps) {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
-
-  useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const response = await fetch('/api/gallery-images')
-        const data = await response.json()
-        setImages(data)
-      } catch (error) {
-        console.error('Error fetching gallery images:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchImages()
-  }, [])
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-[50vh]">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-500"></div>
-      </div>
-    )
-  }
 
   if (!images || images.length === 0) {
     return (
