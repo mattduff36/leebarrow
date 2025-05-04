@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ModalProps } from './types'
 
-export default function Modal({ isOpen, onClose, children }: ModalProps & { children: React.ReactNode }) {
+export default function Modal({ isOpen, onClose, title, children }: ModalProps & { children: React.ReactNode }) {
   const modalRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -23,13 +23,11 @@ export default function Modal({ isOpen, onClose, children }: ModalProps & { chil
     if (isOpen) {
       document.addEventListener('keydown', handleEscape)
       document.addEventListener('mousedown', handleClickOutside)
-      document.body.style.overflow = 'hidden'
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscape)
       document.removeEventListener('mousedown', handleClickOutside)
-      document.body.style.overflow = 'unset'
     }
   }, [isOpen, onClose])
 
@@ -40,28 +38,19 @@ export default function Modal({ isOpen, onClose, children }: ModalProps & { chil
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
         >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-black bg-opacity-75"
-            aria-hidden="true"
-          />
-
           <motion.div
             ref={modalRef}
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            transition={{ type: 'spring', damping: 15, stiffness: 200 }}
-            className="relative bg-white rounded-lg text-left overflow-hidden shadow-xl w-full max-w-lg"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="modal-title"
+            className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
           >
-            <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div className="p-6">
+              {title && (
+                <h2 className="text-2xl font-bold mb-4 text-center">{title}</h2>
+              )}
               {children}
             </div>
           </motion.div>
