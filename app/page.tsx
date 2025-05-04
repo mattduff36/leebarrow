@@ -1,11 +1,11 @@
 import ClientHero from './components/ClientHero'
-import ClientGallery from './components/ClientGallery'
+import GalleryWrapper from './components/GalleryWrapper'
 
 export default function Home() {
   return (
     <div className="flex flex-col items-center">
       <ClientHero />
-      <ClientGallery />
+      <GalleryWrapper />
     </div>
   )
 } 
