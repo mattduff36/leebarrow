@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { GalleryImage } from './types'
+import Image from 'next/image'
 
 export default function ClientGallery() {
   const [images, setImages] = useState<GalleryImage[]>([])
@@ -57,10 +58,12 @@ export default function ClientGallery() {
                 transition={{ duration: 0.2 }}
                 onClick={() => setSelectedImage(image)}
               >
-                <img
+                <Image
                   src={image.src}
                   alt={image.alt}
                   className="w-full h-full object-cover"
+                  width={500}
+                  height={500}
                 />
               </motion.div>
             ))}
@@ -84,10 +87,12 @@ export default function ClientGallery() {
               className="relative max-w-full max-h-full"
               onClick={(e) => e.stopPropagation()}
             >
-              <img
+              <Image
                 src={selectedImage.src}
                 alt={selectedImage.alt}
                 className="max-w-full max-h-[90vh] object-contain"
+                width={1200}
+                height={800}
               />
             </motion.div>
           </motion.div>

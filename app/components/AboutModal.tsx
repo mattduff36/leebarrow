@@ -6,11 +6,12 @@ import { motion } from 'framer-motion'
 interface AboutModalProps {
   isOpen: boolean
   onClose: () => void
+  title?: string
 }
 
-export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
+export default function AboutModal({ isOpen, onClose, title = "ABOUT" }: AboutModalProps) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="ABOUT">
+    <Modal isOpen={isOpen} onClose={onClose} title={title}>
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
